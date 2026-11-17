@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday, Atapia! 🎁</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Playfair Display & Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cream: '#FAF3E0',
+                        creamDark: '#F2E6C9',
+                        forest: '#314B3C',
+                        forestDark: '#24382C',
+                        pastelYellow: '#FFFFB3',
+                        goldAccent: '#B08D44',
+                    },
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'Georgia', 'serif'],
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Latar Belakang Halaman Warm Cream dengan Pola Titik Halus */
+        body {
+            background-color: #FAF3E0;
+            background-image:
+                radial-gradient(#B08D44 1.1px, transparent 1.1px),
+                radial-gradient(#314B3C 0.8px, #FAF3E0 0.8px);
+            background-size: 44px 44px;
+            background-position: 0 0, 22px 22px;
+            overflow-x: hidden;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        /* =========================================================
+           ANIMASI STAGE 1: KOTAK KADO PLAYFUL
+           ========================================================= */
+        @keyframes giftWobble {
+            0%, 100% { transform: rotate(0deg) scale(1); }
+            15% { transform: rotate(-5deg) scale(1.03); }
+            30% { transform: rotate(5deg) scale(1.03); }
+            45% { transform: rotate(-3deg) scale(1.01); }
+            60% { transform: rotate(3deg) scale(1.01); }
+            75% { transform: rotate(0deg) scale(1); }
+        }
+
+        .gift-wobble {
+            animation: giftWobble 2.8s ease-in-out infinite;
+            transform-origin: bottom center;
+        }
+
+        .gift-wobble:hover {
+            animation-play-state: paused;
+            transform: scale(1.07) translateY(-6px);
+        }
+
+        /* Animasi Tutup Kado Terangkat saat Diklik */
+        @keyframes lidPopOpen {
+            0% { transform: translateY(0) rotate(0deg); }
+            35% { transform: translateY(-28px) rotate(-8deg); }
+            65% { transform: translateY(-42px) rotate(12deg); opacity: 1; }
+            100% { transform: translateY(-80px) rotate(18deg) scale(0.8); opacity: 0; }
+        }
+
+        .lid-opening {
+            animation: lidPopOpen 0.65s cubic-bezier(0.34, 1.56, 0.64, 1) forwards !important;
+        }
+
+        @keyframes boxBurstOut {
+            0% { transform: scale(1); opacity: 1; }
+            40% { transform: scale(1.12); opacity: 1; }
+            100% { transform: scale(0.4) translateY(30px); opacity: 0; }
+        }
+
+        .box-opening {
+            animation: boxBurstOut 0.65s ease-in forwards !important;
+        }
+
+        /* =========================================================
+           ANIMASI STAGE 2: KEMUNCULAN KARTU UCAPAN
+           ========================================================= */
+        @keyframes cardRevealSpring {
+            0% {
+                opacity: 0;
+                transform: scale(0.72) translateY(50px) rotate(-2deg);
+            }
+            60% {
+                opacity: 1;
+                transform: scale(1.03) translateY(-10px) rotate(0.8deg);
+            }
+            82% {
+                transform: scale(0.99) translateY(3px) rotate(-0.3deg);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0) rotate(0deg);
+            }
+        }
+
+        .card-reveal {
+            animation: cardRevealSpring 0.95s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        @keyframes staggerFadeUp {
+            0% {
+                opacity: 0;
+                transform: translateY(16px) scale(0.96);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .stagger-item {
+            opacity: 0;
+        }
+        .card-reveal .stagger-1 { animation: staggerFadeUp 0.6s ease-out 0.25s forwards; }
+        .card-reveal .stagger-2 { animation: staggerFadeUp 0.65s cubic-bezier(0.34, 1.56, 0.64, 1) 0.35s forwards; }
+        .card-reveal .stagger-3 { animation: staggerFadeUp 0.65s cubic-bezier(0.34, 1.56, 0.64, 1) 0.48s forwards; }
+        .card-reveal .stagger-4 { animation: staggerFadeUp 0.6s ease-out 0.6s forwards; }
+        .card-reveal .stagger-5 { animation: staggerFadeUp 0.6s ease-out 0.72s forwards; }
+
+        /* Animasi Sparkle Mengambang */
+        @keyframes floatSparkle {
+            0%, 100% { transform: translateY(0px) rotate(0deg) scale(1); }
+            50% { transform: translateY(-9px) rotate(8deg) scale(1.08); }
+        }
+        .float-sparkle {
+            animation: floatSparkle 4s ease-in-out infinite;
+        }
+
+        @keyframes twinkleStar {
+            0%, 100% { opacity: 1; transform: scale(1) rotate(0deg); }
+            50% { opacity: 0.55; transform: scale(0.82) rotate(12deg); }
+        }
+        .twinkle-star {
+            animation: twinkleStar 2.6s ease-in-out infinite;
+        }
+        .twinkle-star:nth-child(2) { animation-delay: 0.45s; }
+        .twinkle-star:nth-child(3) { animation-delay: 0.9s; }
+
+        /* Efek 3D Tilt Interaktif saat Hover Kartu */
+        .perspective-wrapper {
+            perspective: 1200px;
+        }
+        .card-3d {
+            transition: transform 0.16s ease-out, box-shadow 0.3s ease;
+            transform-style: preserve-3d;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center py-6 px-4 sm:py-10 relative select-none selection:bg-forest selection:text-pastelYellow">
+
+    <!-- Dekorasi Sparkle & Ornamen Mengambang di Latar Belakang -->
+    <div class="fixed inset-0 pointer-events-none overflow-hidden z-0" aria-hidden="true">
+        <div class="absolute top-[10%] left-[8%] text-goldAccent/50 float-sparkle">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0L14.8 9.2L24 12L14.8 14.8L12 24L9.2 14.8L0 12L9.2 9.2L12 0Z"/></svg>
+        </div>
+        <div class="absolute top-[18%] right-[10%] text-forest/35 float-sparkle" style="animation-delay: 0.8s;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0L14.8 9.2L24 12L14.8 14.8L12 24L9.2 14.8L0 12L9.2 9.2L12 0Z"/></svg>
+        </div>
+        <div class="absolute bottom-[14%] left-[11%] text-forest/30 float-sparkle" style="animation-delay: 1.4s;">
+            <svg width="34" height="34" viewBox="0 0 40 40" fill="none">
+                <rect x="4" y="10" width="5" height="15" rx="2.5" transform="rotate(-14 4 10)" fill="currentColor"/>
+                <rect x="13" y="13" width="5" height="15" rx="2.5" transform="rotate(-14 13 13)" fill="currentColor"/>
+                <rect x="22" y="16" width="5" height="15" rx="2.5" transform="rotate(-14 22 16)" fill="currentColor"/>
+            </svg>
+        </div>
+        <div class="absolute bottom-[16%] right-[9%] text-goldAccent/50 float-sparkle" style="animation-delay: 2s;">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0L14.8 9.2L24 12L14.8 14.8L12 24L9.2 14.8L0 12L9.2 9.2L12 0Z"/></svg>
+        </div>
+        <span class="absolute top-[35%] left-[18%] w-2.5 h-2.5 rounded-full bg-goldAccent/40 float-sparkle" style="animation-delay: 0.5s;"></span>
+        <span class="absolute top-[60%] right-[17%] w-3 h-3 rounded-full bg-goldAccent/35 float-sparkle" style="animation-delay: 1.7s;"></span>
+    </div>
+
+    <!-- =====================================================================
+         STAGE 1: LAYAR KOTAK KADO INTERAKTIF (KLIK UNTUK MEMBUKA KEJUTAN)
+         ===================================================================== -->
+    <main id="stage-gift" class="relative z-10 flex flex-col items-center justify-center text-center max-w-md w-full px-4 transition-all duration-500">
+        
+        <!-- Label Atas -->
+        <div class="inline-flex items-center gap-2 bg-creamDark/90 border border-goldAccent/40 text-goldAccent px-4 py-1.5 rounded-full text-xs font-bold tracking-[0.2em] uppercase mb-5 shadow-sm">
+            <span>✦</span>
+            <span>Special Delivery</span>
+            <span>✦</span>
+        </div>
+
+        <!-- Judul Sapaan Playful -->
+        <h1 class="font-serif font-extrabold text-forestDark text-3xl sm:text-4xl leading-tight mb-2">
+            Ada kejutan spesial<br>untuk <span class="underline decoration-goldAccent decoration-wavy underline-offset-4">Atapia</span>!
+        </h1>
+        <p class="text-forest/80 text-sm sm:text-base font-medium mb-8">
+            Seseorang menyiapkan sesuatu yang manis hari ini...
+        </p>
+
+        <!-- Kotak Kado 3D-Styled Interaktif (SVG) -->
+        <div id="gift-box-trigger" onclick="openGiftBox()" role="button" tabindex="0" aria-label="Buka kado ulang tahun"
+             onkeydown="if(event.key==='Enter'||event.key===' ') openGiftBox()"
+             class="gift-wobble cursor-pointer group relative flex flex-col items-center justify-center p-4 focus:outline-none">
+            
+            <!-- Cahaya Latar Lembut di Belakang Kado -->
+            <div class="absolute w-48 h-48 sm:w-56 sm:h-56 rounded-full bg-pastelYellow/80 blur-2xl group-hover:scale-110 transition-transform duration-500 -z-10"></div>
+
+            <!-- SVG Kotak Kado Deep Forest Green & Pita Pastel Yellow -->
+            <svg class="w-48 h-48 sm:w-56 sm:h-56 drop-shadow-[0_20px_28px_rgba(36,56,44,0.28)] overflow-visible" viewBox="0 0 220 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Bayangan Bawah Kado -->
+                <ellipse cx="110" cy="198" rx="72" ry="11" fill="#314B3C" fill-opacity="0.18"/>
+
+                <!-- BADAN KOTAK KADO -->
+                <g id="gift-body">
+                    <!-- Kotak Utama -->
+                    <rect x="42" y="92" width="136" height="100" rx="14" fill="#314B3C"/>
+                    <!-- Sisi Kanan Bayangan Halus (Efek 3D) -->
+                    <path d="M148 92H164C171.732 92 178 98.268 178 106V178C178 185.732 171.732 192 164 192H148V92Z" fill="#24382C" fill-opacity="0.45"/>
+                    <!-- Pita Vertikal Pastel Yellow -->
+                    <rect x="96" y="92" width="28" height="100" fill="#FFFFB3"/>
+                    <!-- Garis Aksen Emas pada Pita -->
+                    <line x1="100" y1="92" x2="100" y2="192" stroke="#B08D44" stroke-width="1.5" stroke-opacity="0.45"/>
+                    <line x1="120" y1="92" x2="120" y2="192" stroke="#B08D44" stroke-width="1.5" stroke-opacity="0.45"/>
+                    <!-- Bayangan Bawah Tutup pada Badan Kotak -->
+                    <rect x="42" y="92" width="136" height="10" fill="#1B2B22" fill-opacity="0.35"/>
+                </g>
+
+                <!-- TUTUP KOTAK KADO & PITA SIMPUL ATAS (ANIMASI TERANGKAT SAAT DIKLIK) -->
+                <g id="gift-lid" style="transform-origin: 110px 80px;">
+                    <!-- Simpul Pita Kiri -->
+                    <path d="M108 62C94 34 56 36 62 60C66 74 94 70 108 64Z" fill="#FFFFB3" stroke="#B08D44" stroke-width="2"/>
+                    <path d="M104 62C94 46 72 48 75 59C77 66 93 65 104 62Z" fill="#F5E693"/>
+                    <!-- Simpul Pita Kanan -->
+                    <path d="M112 62C126 34 164 36 158 60C154 74 126 70 112 64Z" fill="#FFFFB3" stroke="#B08D44" stroke-width="2"/>
+                    <path d="M116 62C126 46 148 48 145 59C143 66 127 65 116 62Z" fill="#F5E693"/>
+                    <!-- Ikatan Tengah Pita -->
+                    <rect x="99" y="52" width="22" height="16" rx="6" fill="#FFFFB3" stroke="#B08D44" stroke-width="2"/>
+
+                    <!-- Tutup Kotak -->
+                    <rect x="34" y="66" width="152" height="28" rx="9" fill="#3A5847"/>
+                    <path d="M156 66H177C181.971 66 186 70.0294 186 75V85C186 89.9706 181.971 94 177 94H156V66Z" fill="#24382C" fill-opacity="0.4"/>
+                    <!-- Pita di Tutup Kotak -->
+                    <rect x="96" y="66" width="28" height="28" fill="#FFFFB3"/>
+                    <line x1="100" y1="66" x2="100" y2="94" stroke="#B08D44" stroke-width="1.5" stroke-opacity="0.45"/>
+                    <line x1="120" y1="66" x2="120" y2="94" stroke="#B08D44" stroke-width="1.5" stroke-opacity="0.45"/>
+                </g>
+
+                <!-- Bintang Kecil Mengelilingi Kado -->
+                <path d="M24 52L26.2 58.8L33 61L26.2 63.2L24 70L21.8 63.2L15 61L21.8 58.8L24 52Z" fill="#B08D44"/>
+                <path d="M196 42L198.2 48.8L205 51L198.2 53.2L196 60L193.8 53.2L187 51L193.8 48.8L196 42Z" fill="#B08D44"/>
+                <circle cx="195" cy="115" r="3.5" fill="#B08D44"/>
+                <circle cx="24" cy="128" r="3" fill="#B08D44"/>
+            </svg>
+
+            <!-- Tombol / Instruksi Klik Kado -->
+            <div class="mt-4 inline-flex items-center gap-2 bg-forest group-hover:bg-forestDark text-pastelYellow font-bold text-sm sm:text-base px-6 py-3 rounded-full shadow-lg border-2 border-goldAccent/40 transition-all group-hover:scale-105 active:scale-95">
+                <span>Klik kadonya untuk membuka!</span>
+                <span class="text-base">✨</span>
+            </div>
+        </div>
+    </main>
+
+    <!-- =====================================================================
+         STAGE 2: KARTU UCAPAN SELAMAT ULANG TAHUN (DESAIN UTUH UNTUK ATAPIA)
+         ===================================================================== -->
+    <section id="stage-card" class="hidden relative z-10 w-full max-w-[520px] flex-col items-center">
+        
+        <div class="perspective-wrapper w-full flex justify-center">
+            <!-- Bingkai Luar Tebal Deep Forest Green (#314B3C) -->
+            <!-- Klik di mana saja pada kartu akan memunculkan mini confetti tambahan -->
+            <div id="birthday-card" onclick="burstMiniConfetti(event)" title="Klik kartu untuk menebar confetti!"
+                 class="card-3d w-full bg-forest p-4 sm:p-6 rounded-2xl shadow-[0_25px_60px_-15px_rgba(36,56,44,0.45)] cursor-pointer">
+                
+                <!-- Latar Belakang Dalam Kartu Warm Cream (#FAF3E0) -->
+                <div class="relative w-full bg-cream rounded-xl px-5 py-8 sm:px-9 sm:py-10 flex flex-col items-center text-center overflow-hidden">
+
+                    <!-- Ornamen 5 Bentuk Pil Miring Hijau Tua - Pojok Kiri Atas -->
+                    <div class="absolute top-4 left-4 sm:top-5 sm:left-5 flex items-center gap-[5px] sm:gap-[6px] pointer-events-none" aria-hidden="true">
+                        <span class="w-[5px] sm:w-[6px] h-[16px] sm:h-[20px] bg-forest rounded-full -rotate-[14deg] translate-y-0"></span>
+                        <span class="w-[5px] sm:w-[6px] h-[16px] sm:h-[20px] bg-forest rounded-full -rotate-[14deg] translate-y-[4px]"></span>
+                        <span class="w-[5px] sm:w-[6px] h-[16px] sm:h-[20px] bg-forest rounded-full -rotate-[14deg] translate-y-[8px]"></span>
+                        <span class="w-[5px] sm:w-[6px] h-[16px] sm:h-[20px] bg-forest rounded-full -rotate-[14deg] translate-y-[12px]"></span>
+                        <span class="w-[5px] sm:w-[6px] h-[16px] sm:h-[20px] bg-forest rounded-full -rotate-[14deg] translate-y-[16px]"></span>
+                    </div>
+
+                    <!-- Ornamen 5 Bentuk Pil Miring Hijau Tua - Pojok Kanan Bawah -->
+                    <div class="absolute bottom-6 right-4 sm:bottom-8 sm:right-5 flex items-center gap-[5px] sm:gap-[6px] pointer-events-none" aria-hidden="true">
+                        <span class="w-[5px] sm:w-[6px] h-[16px] sm:h-[20px] bg-forest rounded-full -rotate-[14deg] -translate-y-[16px]"></span>
+                        <span class="w-[5px] sm:w-[6px] h-[16px] sm:h-[20px] bg-forest rounded-full -rotate-[14deg] -translate-y-[12px]"></span>
+                        <span class="w-[5px] sm:w-[6px] h-[16px] sm:h-[20px] bg-forest rounded-full -rotate-[14deg] -translate-y-[8px]"></span>
+                        <span class="w-[5px] sm:w-[6px] h-[16px] sm:h-[20px] bg-forest rounded-full -rotate-[14deg] -translate-y-[4px]"></span>
+                        <span class="w-[5px] sm:w-[6px] h-[16px] sm:h-[20px] bg-forest rounded-full -rotate-[14deg] translate-y-0"></span>
+                    </div>
+
+                    <!-- Taburan Titik-titik Emas (#B08D44) persis seperti desain referensi -->
+                    <span class="absolute top-[7%] left-[8%] w-1.5 h-1.5 rounded-full bg-goldAccent pointer-events-none"></span>
+                    <span class="absolute top-[22%] left-[7%] w-1 h-1 rounded-full bg-goldAccent pointer-events-none"></span>
+                    <span class="absolute top-[23.5%] left-[21%] w-1.5 h-1.5 rounded-full bg-goldAccent pointer-events-none"></span>
+                    <span class="absolute top-[37.5%] left-[7.5%] w-1 h-1 rounded-full bg-goldAccent pointer-events-none"></span>
+                    <span class="absolute top-[39%] left-[21.5%] w-1.5 h-1.5 rounded-full bg-goldAccent pointer-events-none"></span>
+                    <span class="absolute top-[56%] left-[21.5%] w-1.5 h-1.5 rounded-full bg-goldAccent pointer-events-none"></span>
+
+                    <span class="absolute top-[22.5%] right-[20%] w-2 h-2 rounded-full bg-goldAccent pointer-events-none"></span>
+                    <span class="absolute top-[38%] right-[20%] w-2 h-2 rounded-full bg-goldAccent pointer-events-none"></span>
+
+                    <span class="absolute bottom-[25%] left-[36%] w-1.5 h-1.5 rounded-full bg-goldAccent pointer-events-none"></span>
+                    <span class="absolute bottom-[23%] left-[50%] w-1 h-1 rounded-full bg-goldAccent pointer-events-none"></span>
+                    <span class="absolute bottom-[21.5%] right-[34%] w-1.5 h-1.5 rounded-full bg-goldAccent pointer-events-none"></span>
+                    <span class="absolute bottom-[7.5%] left-[50%] w-1 h-1 rounded-full bg-goldAccent pointer-events-none"></span>
+                    <span class="absolute bottom-[6%] right-[34%] w-1.5 h-1.5 rounded-full bg-goldAccent pointer-events-none"></span>
+                    <span class="absolute bottom-[8.5%] right-[20%] w-1.5 h-1.5 rounded-full bg-goldAccent pointer-events-none"></span>
+
+                    <!-- Bagian Atas: Garis Emas Tipis & "A DAY TO CELEBRATE" -->
+                    <div class="stagger-item stagger-1 flex flex-col items-center w-full">
+                        <div class="w-40 sm:w-48 h-[1.5px] bg-goldAccent/80 mb-3.5"></div>
+                        <p class="text-goldAccent text-[11px] sm:text-xs font-semibold tracking-[0.28em] uppercase mb-5">
+                            A DAY TO CELEBRATE
+                        </p>
+                    </div>
+
+                    <!-- =================================================================
+                         BINGKAI FOTO MELINGKAR (TEMPAT MENARUH FOTO TEMANMU)
+                         ================================================================= -->
+                    <div class="stagger-item stagger-2 relative z-10 w-44 h-44 sm:w-56 sm:h-56 rounded-full border-[7px] sm:border-[8px] border-forest bg-creamDark shadow-inner overflow-hidden flex items-center justify-center">
+                        
+                        <!-- Fallback Siluet Cantik (Otomatis tersembunyi jika foto sudah diisi) -->
+                        <div id="photo-fallback" class="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-b from-creamDark to-[#E8D8B5] text-forest/45">
+                            <svg class="w-20 h-20 sm:w-24 sm:h-24" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 12c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm0 2c-3.33 0-10 1.67-10 5v3h20v-3c0-3.33-6.67-5-10-5z"/>
+                            </svg>
+                        </div>
+
+                        <!-- ===============================================================
+                             TARUH FOTO TEMANMU DI SINI:
+                             Ganti nilai src="" di bawah ini dengan nama file foto kamu
+                             (contoh: src="foto-atapia.jpg") atau URL foto online.
+                             =============================================================== -->
+                        <img id="friend-photo"
+                             src="D:\WhatsApp Image 2026-11-17 at 19.36.38.jpeg"
+                             alt="Foto Atapia"
+                             style="object-fit: cover; width: 100%; height: 100%;"
+                             class="relative z-10 hidden"
+                             onload="this.classList.remove('hidden'); document.getElementById('photo-fallback').classList.add('hidden');"
+                             onerror="this.classList.add('hidden'); document.getElementById('photo-fallback').classList.remove('hidden');">
+                    </div>
+
+                    <!-- KOTAK HIGHLIGHT SOFT PASTEL YELLOW (#FFFFB3) MENUMPUK BAWAH FOTO -->
+                    <div class="stagger-item stagger-3 relative z-20 -mt-7 sm:-mt-9 w-full max-w-[330px] sm:max-w-[375px] bg-pastelYellow rounded-2xl px-5 pt-4 pb-5 sm:px-7 sm:pt-5 sm:pb-6 shadow-[0_6px_20px_rgba(49,75,60,0.08)]">
+                        <!-- Judul Utama Serif Klasik Tebal -->
+                        <h1 class="font-serif font-extrabold text-forestDark text-[40px] sm:text-[50px] leading-[0.98] tracking-tight">
+                            Happy<br>Birthday!
+                        </h1>
+
+                        <!-- Garis Pemisah Horizontal Tebal dengan Ujung Membulat -->
+                        <div class="w-4/5 mx-auto h-[5px] sm:h-[6px] bg-forestDark rounded-full my-3 sm:my-3.5"></div>
+
+                        <!-- NAMA PENERIMA (Ubah teks "Atapia" di bawah ini jika perlu) -->
+                        <h2 class="font-serif font-bold text-forestDark text-2xl sm:text-[32px] leading-tight tracking-tight">
+                            Atapia
+                        </h2>
+                    </div>
+
+                    <!-- Tiga Ornamen Bintang Empat Sudut (✦ ✦ ✦) Emas -->
+                    <div class="stagger-item stagger-4 flex items-center justify-center gap-3 text-goldAccent my-4 sm:my-5" aria-hidden="true">
+                        <svg class="w-4 h-4 sm:w-5 sm:h-5 twinkle-star" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 0L14.8 9.2L24 12L14.8 14.8L12 24L9.2 14.8L0 12L9.2 9.2L12 0Z"/>
+                        </svg>
+                        <svg class="w-4 h-4 sm:w-5 sm:h-5 twinkle-star" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 0L14.8 9.2L24 12L14.8 14.8L12 24L9.2 14.8L0 12L9.2 9.2L12 0Z"/>
+                        </svg>
+                        <svg class="w-4 h-4 sm:w-5 sm:h-5 twinkle-star" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 0L14.8 9.2L24 12L14.8 14.8L12 24L9.2 14.8L0 12L9.2 9.2L12 0Z"/>
+                        </svg>
+                    </div>
+
+                    <!-- PESAN UCAPAN UTAMA (Bisa disesuaikan langsung di kode) -->
+                    <p class="stagger-item stagger-4 text-forestDark font-medium text-sm sm:text-[15.5px] leading-[1.65] max-w-[360px] mb-5">
+                        Semoga setiap langkahmu dipenuhi<br>
+                        kebahagiaan, kesehatan, dan hal-hal baik.<br>
+                        Terus bertumbuh, bermimpi, dan bersinar.
+                    </p>
+
+                    <!-- Sub-Ucapan Serif Klasik -->
+                    <p class="stagger-item stagger-5 font-serif text-forest text-base sm:text-[19px] font-normal tracking-normal mb-6">
+                        Wishing you a wonderful year ahead
+                    </p>
+
+                    <!-- Garis Emas Tipis Bawah & Footer -->
+                    <div class="stagger-item stagger-5 flex flex-col items-center w-full">
+                        <div class="w-40 sm:w-48 h-[1.5px] bg-goldAccent/80 mb-3.5"></div>
+                        <p class="text-goldAccent text-[10px] sm:text-[11px] font-semibold tracking-[0.26em] uppercase">
+                            FOR MY FRIEND &bull; ATAPIA
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Tombol Kecil & Rapi di Luar Bingkai Kartu untuk Merayakan Ulang / Musik -->
+        <div class="mt-5 flex items-center justify-center gap-2.5">
+            <button onclick="launchBigConfetti()" class="inline-flex items-center gap-1.5 bg-forest hover:bg-forestDark text-pastelYellow text-xs font-semibold px-4 py-2 rounded-full shadow-md transition-all active:scale-95 cursor-pointer">
+                <span>Rayakan Lagi! 🎉</span>
+            </button>
+            <button id="sound-btn" onclick="toggleBirthdayMusic()" class="inline-flex items-center gap-1.5 bg-creamDark hover:bg-goldAccent/20 text-forest border border-forest/20 text-xs font-semibold px-3.5 py-2 rounded-full shadow-sm transition-all active:scale-95 cursor-pointer">
+                <span id="sound-icon">🎵</span>
+                <span id="sound-label">Putar Musik</span>
+            </button>
+        </div>
+
+    </section>
+
+    <script>
+        // =========================================================
+        // 1. CEK OTOMATIS JIKA SRC FOTO SUDAH DIISI DI KODE
+        // =========================================================
+        window.addEventListener('DOMContentLoaded', () => {
+            const photoImg = document.getElementById('friend-photo');
+            const fallback = document.getElementById('photo-fallback');
+            const rawSrc = photoImg.getAttribute('src');
+
+            if (rawSrc && rawSrc.trim() !== '') {
+                photoImg.classList.remove('hidden');
+                fallback.classList.add('hidden');
+            }
+
+            setup3DCardTilt();
+        });
+
+        // =========================================================
+        // 2. LOGIKA BUKA KOTAK KADO (STAGE 1 -> STAGE 2)
+        // =========================================================
+        let isOpened = false;
+
+        function openGiftBox() {
+            if (isOpened) return;
+            isOpened = true;
+
+            const giftStage = document.getElementById('stage-gift');
+            const cardStage = document.getElementById('stage-card');
+            const giftLid = document.getElementById('gift-lid');
+            const giftBody = document.getElementById('gift-body');
+            const birthdayCard = document.getElementById('birthday-card');
+
+            // Jalankan animasi tutup kado terbuka & badan kado menghilang
+            giftLid.classList.add('lid-opening');
+            giftBody.classList.add('box-opening');
+
+            // Tembakkan confetti meriah & putar melodi ulang tahun
+            launchBigConfetti();
+            playBirthdayMusic();
+
+            // Transisi mulus ke Stage 2 (Kartu Ucapan)
+            setTimeout(() => {
+                giftStage.classList.add('hidden');
+                cardStage.classList.remove('hidden');
+                cardStage.classList.add('flex');
+                birthdayCard.classList.add('card-reveal');
+
+                // Confetti susulan setelah kartu muncul
+                setTimeout(() => {
+                    launchBigConfetti(0.75);
+                }, 350);
+            }, 520);
+        }
+
+        // =========================================================
+        // 3. CONFETTI SESUAI PALET WARNA KARTU
+        // =========================================================
+        const CARD_COLORS = ['#314B3C', '#FFFFB3', '#B08D44', '#FAF3E0', '#24382C'];
+
+        function launchBigConfetti(scale = 1) {
+            if (typeof confetti !== 'function') return;
+
+            confetti({
+                particleCount: Math.floor(65 * scale),
+                angle: 60,
+                spread: 65,
+                origin: { x: 0.15, y: 0.65 },
+                colors: CARD_COLORS,
+                scalar: 1.05
+            });
+
+            confetti({
+                particleCount: Math.floor(65 * scale),
+                angle: 120,
+                spread: 65,
+                origin: { x: 0.85, y: 0.65 },
+                colors: CARD_COLORS,
+                scalar: 1.05
+            });
+        }
+
+        function burstMiniConfetti(event) {
+            if (typeof confetti !== 'function') return;
+
+            const x = event.clientX / window.innerWidth;
+            const y = event.clientY / window.innerHeight;
+
+            confetti({
+                particleCount: 28,
+                spread: 55,
+                startVelocity: 24,
+                origin: { x, y },
+                colors: CARD_COLORS,
+                scalar: 0.85
+            });
+        }
+
+        // =========================================================
+        // 4. EFEK HOVER 3D PARALLAX PADA KARTU
+        // =========================================================
+        function setup3DCardTilt() {
+            const card = document.getElementById('birthday-card');
+
+            card.addEventListener('mousemove', (e) => {
+                if (window.innerWidth < 768) return;
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                const rotateX = ((y - rect.height / 2) / (rect.height / 2)) * -4.5;
+                const rotateY = ((x - rect.width / 2) / (rect.width / 2)) * 4.5;
+
+                card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'rotateX(0deg) rotateY(0deg)';
+            });
+        }
+
+        // =========================================================
+        // 5. WEB AUDIO API - MELODI KOTAK MUSIK HAPPY BIRTHDAY
+        // =========================================================
+        let audioCtx = null;
+        let isMusicPlaying = false;
+        let musicEndTimer = null;
+
+        function toggleBirthdayMusic() {
+            if (isMusicPlaying) {
+                stopBirthdayMusic();
+            } else {
+                playBirthdayMusic();
+            }
+        }
+
+        function updateSoundButton(playing) {
+            const icon = document.getElementById('sound-icon');
+            const label = document.getElementById('sound-label');
+            if (!icon || !label) return;
+
+            if (playing) {
+                icon.innerText = '🔊';
+                label.innerText = 'Hentikan Musik';
+            } else {
+                icon.innerText = '🎵';
+                label.innerText = 'Putar Musik';
+            }
+        }
+
+        function playBirthdayMusic() {
+            try {
+                if (!audioCtx) {
+                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                }
+                if (audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
+
+                stopBirthdayMusic();
+                isMusicPlaying = true;
+                updateSoundButton(true);
+
+                // Melodi "Happy Birthday to You"
+                const notes = [
+                    { f: 261.63, d: 0.35 }, { f: 261.63, d: 0.15 }, { f: 293.66, d: 0.5 }, { f: 261.63, d: 0.5 }, { f: 349.23, d: 0.5 }, { f: 329.63, d: 0.9 },
+                    { f: 261.63, d: 0.35 }, { f: 261.63, d: 0.15 }, { f: 293.66, d: 0.5 }, { f: 261.63, d: 0.5 }, { f: 392.00, d: 0.5 }, { f: 349.23, d: 0.9 },
+                    { f: 261.63, d: 0.35 }, { f: 261.63, d: 0.15 }, { f: 523.25, d: 0.5 }, { f: 440.00, d: 0.5 }, { f: 349.23, d: 0.5 }, { f: 329.63, d: 0.5 }, { f: 293.66, d: 0.9 },
+                    { f: 466.16, d: 0.35 }, { f: 466.16, d: 0.15 }, { f: 440.00, d: 0.5 }, { f: 349.23, d: 0.5 }, { f: 392.00, d: 0.5 }, { f: 349.23, d: 1.0 }
+                ];
+
+                let startTime = audioCtx.currentTime + 0.05;
+                let totalTime = 0;
+
+                notes.forEach(n => {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(n.f, startTime);
+
+                    gain.gain.setValueAtTime(0.001, startTime);
+                    gain.gain.exponentialRampToValueAtTime(0.18, startTime + 0.04);
+                    gain.gain.exponentialRampToValueAtTime(0.001, startTime + n.d * 0.95);
+
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+
+                    osc.start(startTime);
+                    osc.stop(startTime + n.d);
+
+                    startTime += n.d * 0.95;
+                    totalTime += n.d * 0.95;
+                });
+
+                musicEndTimer = setTimeout(() => {
+                    isMusicPlaying = false;
+                    updateSoundButton(false);
+                }, totalTime * 1000 + 200);
+
+            } catch (err) {
+                isMusicPlaying = false;
+                updateSoundButton(false);
+            }
+        }
+
+        function stopBirthdayMusic() {
+            if (musicEndTimer) {
+                clearTimeout(musicEndTimer);
+                musicEndTimer = null;
+            }
+            if (audioCtx && isMusicPlaying) {
+                audioCtx.close().then(() => { audioCtx = null; });
+            }
+            isMusicPlaying = false;
+            updateSoundButton(false);
+        }
+    </script>
+</body>
+</html>
